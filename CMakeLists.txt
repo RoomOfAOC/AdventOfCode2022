@@ -16,3 +16,4 @@ endfunction()
 
 addExe("day_1" day1/caclorie_couting.cpp)
 addExe("day_2" day2/rock_paper_scissors.cpp)
+addExe("day_3" day3/rucksack_reorganization.cpp)
