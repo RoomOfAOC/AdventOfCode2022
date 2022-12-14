@@ -29,6 +29,19 @@ struct Point
         return !(*this == other);
     }
 
+    Point& operator-=(Point const& other)
+    {
+        x -= other.x;
+        y -= other.y;
+        return *this;
+    }
+    Point& operator+=(Point const& other)
+    {
+        x += other.x;
+        y += other.y;
+        return *this;
+    }
+
     struct PointHasher
     {
         int operator()(Point const &point) const
@@ -44,6 +57,16 @@ std::ostream& operator<<(std::ostream& os, Point const& p)
     return os;
 }
 
+Point operator+(Point const& p1, Point const& p2)
+{
+    return Point(p1.x + p2.x, p1.y + p2.y);
+}
+
+Point operator-(Point const& p1, Point const& p2)
+{
+    return Point(p1.x - p2.x, p1.y - p2.y);
+}
+
 
 template<typename T>
 class Mat
@@ -57,7 +80,7 @@ public:
     Mat() = default;
 
     Mat(size_type const r, size_type const c)
-        : rows(c), cols(c)
+        : rows(r), cols(c)
     {
         data.resize(r * c);
     }
