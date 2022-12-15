@@ -85,6 +85,12 @@ public:
         data.resize(r * c);
     }
 
+    Mat(size_type const r, size_type const c, value_type const x)
+        : rows(r), cols(c)
+    {
+        data.resize(r * c, x);
+    }
+
     reference operator()(size_type const i, size_type const j) noexcept
     {
         return data[i * cols + j];
