@@ -2,6 +2,8 @@
 // Created by Harold on 2022/12/12.
 //
 
+#pragma once
+
 #include <fstream>
 #include <string>
 #include <sstream>
@@ -53,7 +55,7 @@ struct Point
 
 std::ostream& operator<<(std::ostream& os, Point const& p)
 {
-    std::cout << "[" << p.x << ", " << p.y << "]";
+    os << "[" << p.x << ", " << p.y << "]";
     return os;
 }
 
@@ -67,6 +69,36 @@ Point operator-(Point const& p1, Point const& p2)
     return Point(p1.x - p2.x, p1.y - p2.y);
 }
 
+struct Point3d
+{
+    int x, y, z;
+    Point3d() = default;
+    Point3d(int xx, int yy, int zz) : x(xx), y(yy), z(zz) {}
+    Point3d(Point3d const &) = default;
+    Point3d &operator=(Point3d const &) = default;
+    Point3d(Point3d &&) = default;
+    Point3d &operator=(Point3d &&) = default;
+
+    bool operator==(Point3d const& other) const
+    {
+        return x == other.x && y == other.y && z == other.z;
+    }
+
+    struct Hasher
+    {
+        size_t operator()(Point3d const& p) const
+        {
+            std::hash<int> hasher;
+            return hasher(p.x) ^ hasher(p.y) ^ hasher(p.z);
+        }
+    };
+};
+
+std::ostream& operator<<(std::ostream& os, Point3d const& p)
+{
+    os << "[" << p.x << ", " << p.y << ", " << p.z << "]";
+    return os;
+}
 
 template<typename T>
 class Mat
