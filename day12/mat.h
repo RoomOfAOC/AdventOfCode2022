@@ -46,9 +46,9 @@ struct Point
 
     struct PointHasher
     {
-        int operator()(Point const &point) const
+        size_t operator()(Point const &point) const
         {
-            return std::hash<int>()(point.x) ^ std::hash<int>()(point.y);
+            return std::hash<int>()(point.x) ^ (std::hash<int>()(point.y) << 1);
         }
     };
 };
